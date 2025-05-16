@@ -2,6 +2,8 @@ import { newMostMistakesFirstSorter } from '../src/ordering/prioritization/mostm
 import { newRecentMistakesFirstSorter } from '../src/ordering/prioritization/recentmistakes.js'
 import { CardStatus, newCardStatus } from '../src/cards/cardstatus.js'
 import { newFlashCard } from '../src/cards/flashcard.js'
+import test, { describe } from 'node:test'
+import assert from 'node:assert/strict'
 
 const createMostMistakesFirstSorter = newMostMistakesFirstSorter
 const createRecentMistakesFirstSorter = newRecentMistakesFirstSorter
@@ -15,6 +17,7 @@ describe('Test prioritization', () => {
   const flashCard6 = newFlashCard('Question6', 'Answer6')
   const flashCard7 = newFlashCard('Question7', 'Answer7')
   const flashCard8 = newFlashCard('Question8', 'Answer8')
+
   const cardStatus1 = newCardStatus(flashCard1)
   const cardStatus2 = newCardStatus(flashCard2)
   const cardStatus3 = newCardStatus(flashCard3)
@@ -23,6 +26,7 @@ describe('Test prioritization', () => {
   const cardStatus6 = newCardStatus(flashCard6)
   const cardStatus7 = newCardStatus(flashCard7)
   const cardStatus8 = newCardStatus(flashCard8)
+
   cardStatus1.recordResult(false)
   cardStatus1.recordResult(false)
   cardStatus1.recordResult(false)
@@ -47,31 +51,33 @@ describe('Test prioritization', () => {
   cardStatus8.recordResult(true)
   cardStatus8.recordResult(true)
   cardStatus8.recordResult(true)
-  // Covering all combinations of CardStatus with three recorded results.
 
-  const cards: CardStatus[] = [cardStatus1, cardStatus2, cardStatus3, cardStatus4, cardStatus5, cardStatus6, cardStatus7, cardStatus8]
+  const cards: CardStatus[] = [
+    cardStatus1, cardStatus2, cardStatus3, cardStatus4,
+    cardStatus5, cardStatus6, cardStatus7, cardStatus8
+  ]
 
   test('Test newMostMistakesFirstSorter', () => {
     const cardsSorted: CardStatus[] = createMostMistakesFirstSorter().reorganize(cards)
-    expect(cardsSorted[0]).toEqual(cardStatus1)
-    expect(cardsSorted[1]).toEqual(cardStatus4)
-    expect(cardsSorted[2]).toEqual(cardStatus6)
-    expect(cardsSorted[3]).toEqual(cardStatus7)
-    expect(cardsSorted[4]).toEqual(cardStatus2)
-    expect(cardsSorted[5]).toEqual(cardStatus3)
-    expect(cardsSorted[6]).toEqual(cardStatus5)
-    expect(cardsSorted[7]).toEqual(cardStatus8)
+    assert.deepStrictEqual(cardsSorted[0], cardStatus1)
+    assert.deepStrictEqual(cardsSorted[1], cardStatus4)
+    assert.deepStrictEqual(cardsSorted[2], cardStatus6)
+    assert.deepStrictEqual(cardsSorted[3], cardStatus7)
+    assert.deepStrictEqual(cardsSorted[4], cardStatus2)
+    assert.deepStrictEqual(cardsSorted[5], cardStatus3)
+    assert.deepStrictEqual(cardsSorted[6], cardStatus5)
+    assert.deepStrictEqual(cardsSorted[7], cardStatus8)
   })
 
-  test('Test recentRecentMistakesFirstSorter', () => {
+  test('Test newRecentMistakesFirstSorter', () => {
     const cardsSorted: CardStatus[] = createRecentMistakesFirstSorter().reorganize(cards)
-    expect(cardsSorted[0]).toEqual(cardStatus1)
-    expect(cardsSorted[1]).toEqual(cardStatus2)
-    expect(cardsSorted[2]).toEqual(cardStatus4)
-    expect(cardsSorted[3]).toEqual(cardStatus6)
-    expect(cardsSorted[4]).toEqual(cardStatus3)
-    expect(cardsSorted[5]).toEqual(cardStatus5)
-    expect(cardsSorted[6]).toEqual(cardStatus7)
-    expect(cardsSorted[7]).toEqual(cardStatus8)
+    assert.deepStrictEqual(cardsSorted[0], cardStatus1)
+    assert.deepStrictEqual(cardsSorted[1], cardStatus2)
+    assert.deepStrictEqual(cardsSorted[2], cardStatus4)
+    assert.deepStrictEqual(cardsSorted[3], cardStatus6)
+    assert.deepStrictEqual(cardsSorted[4], cardStatus3)
+    assert.deepStrictEqual(cardsSorted[5], cardStatus5)
+    assert.deepStrictEqual(cardsSorted[6], cardStatus7)
+    assert.deepStrictEqual(cardsSorted[7], cardStatus8)
   })
 })
