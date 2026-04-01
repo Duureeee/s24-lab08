@@ -1,13 +1,16 @@
 {
-    "compilerOptions": {
-        "target": "ES6",
-        "module": "commonjs",      // Change to CommonJS
-        "sourceMap": true,
-        "strict": true,
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-        "outDir": "./dist",
-        "rootDir": "./src"
-    },
-    "include": ["src/**/*"]
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "sourceMap": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src"
+  },
+  "include": [
+    "src/**/*",
+    "tests/**/*"        // tests хавтас орууллаа
+  ]
 }
