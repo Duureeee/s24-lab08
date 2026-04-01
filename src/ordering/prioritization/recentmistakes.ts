@@ -1,7 +1,7 @@
 import { CardStatus } from '../../cards/cardstatus.js'
 import { CardOrganizer } from '../cardorganizer.js'
 
-function newRecentMistakesFirstSorter (): CardOrganizer {
+function newRecentMistakesFirstSorter(): CardOrganizer {
   return {
     /**
      * Orders the cards by the time of most recent incorrect answers provided for them.
